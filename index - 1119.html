@@ -74,14 +74,14 @@
             }
             .text {
                 position: fixed;
-                bottom: 100px;
+                bottom: 20px;
                 text-align: center;
                 width: 100%;
                 font-weight: bold;
             }
             .text-right {
                 position: fixed;
-                bottom: 130px;
+                bottom: 50px;
                 text-align: right;
                 width: 100%;
                 font-weight: bold;
@@ -103,15 +103,17 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/garden.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
+
 </head>
 
 <body>
 
 <!--头像-->
+<!--
     <div class="cs">
         <img src="asset/01.jpg" id="logo">
     </div>
-	<!--
+
 	<div class="music" onclick="playAudio()">
 		<audio id="myAudio" controls>
 			<source src="asset/mali.mp3" type="audio/mp3">
@@ -152,11 +154,13 @@
       setInterval("toggleSound()", 1);
     </script>
     <!-- 音乐结束 -->
-
 	
 <div id="mainDiv">
 	<div id="content">
 		<div id="code">
+			<!--<span class="comments">/*</span><br />
+			<span class="space"/><span class="comments">*2024—10-26</span><br />
+			<span class="space"/><span class="comments">*/</span><br /> -->
 			Boy name = <span class="keyword">Mr</span> Guo<br />
 			Girl name = <span class="keyword">Mrs</span> Lei<br />
 			<span class="comments">雷老师❤️  </span><br />
@@ -237,5 +241,9 @@ if (!document.createElement('canvas').getContext) {
 	$("#code").typewriter();
 }
 </script>
+<!--
+<embed src="http://www.ytmp3.cn/down/39154.mp3" autostart="true" loop="true" hidden="true">
+</embed> 
+-->
 </body>
 </html>
