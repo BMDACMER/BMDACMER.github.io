@@ -97,6 +97,38 @@
 			.music.hidden {
             display: none;
 			}
+            /* 优化轮播图样式 */
+            .slideshow-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                overflow: hidden;
+            }
+
+            .slideshow-image {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: opacity 2s ease-in-out; /* 增加过渡时间，使切换更平滑 */
+                object-fit: cover;
+                transform: scale(1.1); /* 添加缩放效果 */
+                animation: zoomEffect 15s infinite; /* 添加缓慢缩放动画 */
+            }
+
+            .slideshow-image.active {
+                opacity: 0.4;  /* 稍微调整透明度 */
+            }
+
+            /* 添加缩放动画效果 */
+            @keyframes zoomEffect {
+                0% { transform: scale(1.1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1.1); }
+            }
         </style>
 
 <link href="css/default.css" type="text/css" rel="stylesheet">
@@ -106,6 +138,14 @@
 </head>
 
 <body>
+    <!-- 添加轮播图容器 -->
+    <div class="slideshow-container">
+        <img class="slideshow-image" src="images/01.jpg" alt="背景图片1">
+        <img class="slideshow-image" src="images/02.jpg" alt="背景图片2">
+        <img class="slideshow-image" src="images/03.jpg" alt="背景图片3">
+        <img class="slideshow-image" src="images/04.jpg" alt="背景图片4">
+		<img class="slideshow-image" src="images/05.jpg" alt="背景图片5">
+    </div>
 
 <!--头像-->
     <div class="cs">
@@ -173,11 +213,11 @@
 			却仿佛已相识千年。<br/>
 			<br>
 
-			<span class="comments">还记得在广州塔，手里拿着新买的相机，咱们俩都不懂如何使用，闹了一阵“瞎操作”。</span><br />
+			<span class="comments">还记得在广州塔，手里拿着新买的相机，咱们俩都不懂如何使用，闹了一阵"瞎操作"。</span><br />
             哈哈哈，那一刻，我竟觉得自己是个大傻瓜，一个理工科的博士生，居然连相机都不会调试。</span><br />
 			那个夜晚，气氛美好极了，尽管照片拍得不怎么样，但却弥足珍贵，承载了无数的笑声和回忆。<br />
 			<span class="comments">你真的很美，但比外貌更美的是你的内心，那份温暖与纯粹。</span><br /> <br/>
-			<span class="comments">“你喜欢吃什么呀，我下次再做给你啊”</span><br /> 你总是那么体贴。<br/>
+			<span class="comments">"你喜欢吃什么呀，我下次再做给你啊"</span><br /> 你总是那么体贴。<br/>
 			即便你总是那么忙碌，每当我走到你身边，只为与你共度片刻，你依然耐心陪我走遍每个角落，陪我散心~
 			<span class="comments">我感到无比幸运，因为我遇到了你，让我重新相信了爱与温暖。</span><br />
 			<!--<span class="comments"></span><br /> -->
@@ -236,6 +276,51 @@ if (!document.createElement('canvas').getContext) {
 	adjustCodePosition();
 	$("#code").typewriter();
 }
+</script>
+
+<script>
+    // 优化轮播图脚本
+    function initSlideshow() {
+        const images = document.querySelectorAll('.slideshow-image');
+        let currentImageIndex = 0;
+        
+        // 显示第一张图片
+        images[0].classList.add('active');
+        
+        // 淡入淡出切换效果
+        function crossfade() {
+            // 移除当前图片的active类
+            images[currentImageIndex].classList.remove('active');
+            
+            // 计算下一张图片的索引
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            
+            // 添加active类到下一张图片
+            images[currentImageIndex].classList.add('active');
+        }
+
+        // 设置自动切换间隔
+        setInterval(crossfade, 7000); // 每7秒切换一次图片
+    }
+
+    // 确保图片预加载完成后再初始化轮播
+    window.addEventListener('load', () => {
+        const images = document.querySelectorAll('.slideshow-image');
+        let loadedImages = 0;
+
+        images.forEach(img => {
+            img.onload = () => {
+                loadedImages++;
+                if (loadedImages === images.length) {
+                    initSlideshow();
+                }
+            }
+            // 处理已经加载完成的图片
+            if (img.complete) {
+                img.onload();
+            }
+        });
+    });
 </script>
 </body>
 </html>
